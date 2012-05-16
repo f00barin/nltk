@@ -3,7 +3,7 @@
 # Copyright (C) 2001-2012 NLTK Project
 # Author: Edward Loper <edloper@gradient.cis.upenn.edu>
 #         Michael Heilman <mheilman@cmu.edu> (re-port from http://www.cis.upenn.edu/~treebank/tokenizer.sed)
-#         
+#
 # URL: <http://nltk.sourceforge.net>
 # For license information, see LICENSE.TXT
 
@@ -77,6 +77,8 @@ class TreebankWordTokenizer(TokenizerI):
 
         text = re.sub(r"([^'])' ", r"\1 ' ", text)
 
+        # Separate periods that come before newline or end of string.
+        text = re.sub('\. *(\n|$)', ' . ', text)
         #parens, brackets, etc.
         text = re.sub(r'[\]\[\(\)\{\}\<\>]', r' \g<0> ', text)
         text = re.sub(r'--', r' -- ', text)
